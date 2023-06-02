@@ -1,13 +1,9 @@
 import React from 'react'
 import { Navbar } from '@/components/Navbar'
 import { Navig } from '@/components/Navig'
-import { SideBar } from '@/components/SideBar'
-import { Carousl } from '@/components/Carousl'
-import { Side } from '@/components/Side'
-import { Footer } from '@/components/Footer'
-import { Label, Textarea, TextInput } from 'flowbite-react'
 
-import { Facility } from '@/components/Facility'
+import { Footer } from '@/components/Footer'
+
 const Facilities = () => {
   return (
     <div className='flex flex-col overflow-hidden'>

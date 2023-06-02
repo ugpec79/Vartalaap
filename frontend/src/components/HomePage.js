@@ -5,14 +5,7 @@ import { blue } from 'tailwindcss/colors'
 export const HomePage = () => {
   return (
     <div className='mt-5 flex flex-col md:justify-center '>
-    <div className='flex flex-row justify-center'>
-  <Button className='mr-5' >
-    Update A Blog!
-  </Button>
-  <Button >
-    Delete A Blog!
-  </Button>
-</div>
+    
       <h1 class="text-center mt-10 mb-4 text-4xl font-extrabold hover:underline leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Latest Blogs!</h1>
   <div class="p-5 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5 mb-5 ml-10 mr-10">
   

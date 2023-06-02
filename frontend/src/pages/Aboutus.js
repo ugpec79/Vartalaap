@@ -1,9 +1,9 @@
 import React from 'react'
 import { Navbar } from '@/components/Navbar'
 import { Navig } from '@/components/Navig'
-import { SideBar } from '@/components/SideBar'
+
 import { Carousl } from '@/components/Carousl'
-import { Side } from '@/components/Side'
+
 import { Footer } from '@/components/Footer'
 
 import { About } from '@/components/About'

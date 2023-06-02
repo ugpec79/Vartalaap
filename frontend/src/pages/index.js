@@ -6,8 +6,7 @@ import { Login } from '@/components/Login'
 import { Navbar } from '@/components/Navbar'
 import { Navig } from '@/components/Navig'
 import { Carousl } from '@/components/Carousl'
-import { Side } from '@/components/Side'
-import { SideBar } from '@/components/SideBar'
+
 import { Footer } from '@/components/Footer'
 import { HomePage } from '@/components/HomePage'
 export default function Home() {
