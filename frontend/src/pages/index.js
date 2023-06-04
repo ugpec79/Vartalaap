@@ -9,12 +9,14 @@ import { Carousl } from '@/components/Carousl'
 
 import { Footer } from '@/components/Footer'
 import { HomePage } from '@/components/HomePage'
+import { useRouter } from 'next/router'
 export default function Home() {
 
   const { data: session } = useSession()
-  if (session) {
+  const router=useRouter();
+  if (session && router.isReady) {
     return (
-      <>
+      <div>
         <Head>
           <title>Home Page</title>
         </Head>
@@ -40,11 +42,11 @@ export default function Home() {
         </div>
 
 
-      </>
+      </div>
     )
   }
   return (
-    <>
+    <div>
       {/* <Navigationbar/> */}
       {/* <button onClick={() => signIn()}>Sign in</button> */}
       <Head>
@@ -54,6 +56,6 @@ export default function Home() {
 
       {/* <FooterBar/> */}
 
-    </>
+    </div>
   )
 }

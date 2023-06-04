@@ -10,38 +10,53 @@ import { Carousl } from '@/components/Carousl'
 import { Footer } from '@/components/Footer'
 import { useRouter } from 'next/router'
 import { Button } from 'flowbite-react'
-
+import { useEffect, useState } from 'react'
 export default function BlogPage() {
     const router=useRouter();
-  const { data: session } = useSession()
+    const { data: session } = useSession();
+    const q=router.query.id;
+    const [blog,setBlog]=useState({});
+    useEffect(()=>{
+      if(router.isReady){
+        fetch(`http://localhost:8000/blogs/getBlog/${q}`,{
+          method:"GET"
+        }).then((res)=>
+          res.json()
+        ).then((data)=>{
+          setBlog(data);
+        })
+      }
+      },[router.isReady])
+      const deleteBlog=(e)=>{
+        e.preventDefault();
+        fetch(`http://localhost:8000/blogs/deleteBlog/${q}`,{
+          method:"POST",
+        }).then((res)=>
+          res.json()
+        ).then((data)=>{
+          alert("Deleted The Blog")
+          console.log(data);
+        }).catch((error)=>{
+          alert("Error")
+          console.log(error);
+        })
+      }
   return (
     <div className='flex flex-col w-screen overflow-hidden'>
  
     <Navbar/>
     <Navig/>
-    <div className='flex flex-row  justify-center overflow-hidden'>
-    <Carousl/>
-
-    </div>
    
     <div className='flex flex-col w-screen ml-5 break-words justify-center items-center'>
-    <h1 class="mb-10 text-2xl my-5 text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Title!</h1>
-    <p className='w-11/12 h-fit text-center my-5 mx-5 '>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum dui faucibus in ornare. Augue neque gravida in fermentum et sollicitudin ac. At augue eget arcu dictum varius duis at. In eu mi bibendum neque egestas congue quisque egestas diam. Sit amet porttitor eget dolor morbi non arcu. Viverra nibh cras pulvinar mattis nunc. Sed elementum tempus egestas sed sed risus pretium quam. Blandit libero volutpat sed cras ornare arcu dui. Sed egestas egestas fringilla phasellus faucibus scelerisque eleifend donec pretium. A pellentesque sit amet porttitor eget dolor morbi. Varius sit amet mattis vulputate enim nulla aliquet. Congue eu consequat ac felis donec.
+    <h1 class="mb-10 text-2xl my-5 text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">{blog?.title}</h1>
+    <p className='w-11/12 h-fit text-center my-5 mx-5 '>{blog?.content}</p>
 
-Placerat duis ultricies lacus sed turpis. Tortor consequat id porta nibh venenatis. Fusce id velit ut tortor pretium. Euismod in pellentesque massa placerat duis ultricies. Mauris sit amet massa vitae tortor. Sit amet nulla facilisi morbi tempus. Sed id semper risus in hendrerit gravida rutrum quisque. Laoreet non curabitur gravida arcu ac tortor dignissim. Sodales ut etiam sit amet. Tristique sollicitudin nibh sit amet. Sit amet nisl suscipit adipiscing. Viverra nam libero justo laoreet sit amet cursus. Mauris nunc congue nisi vitae. Risus sed vulputate odio ut. Fermentum leo vel orci porta non pulvinar neque laoreet. Et ultrices neque ornare aenean euismod elementum.
-
-Pulvinar mattis nunc sed blandit libero volutpat sed cras. Urna molestie at elementum eu facilisis sed odio morbi quis. Commodo nulla facilisi nullam vehicula ipsum a. At quis risus sed vulputate odio ut. Nunc congue nisi vitae suscipit. Pellentesque habitant morbi tristique senectus et netus. Eget duis at tellus at urna condimentum. Neque sodales ut etiam sit amet nisl purus in. Scelerisque purus semper eget duis at tellus at. Posuere ac ut consequat semper viverra nam libero justo laoreet. Tellus cras adipiscing enim eu turpis egestas.
-
-Pellentesque diam volutpat commodo sed egestas. Fermentum odio eu feugiat pretium nibh. Lectus arcu bibendum at varius. Sed id semper risus in hendrerit gravida. Sed libero enim sed faucibus turpis in eu mi. Aliquam vestibulum morbi blandit cursus risus at ultrices mi. Venenatis a condimentum vitae sapien pellentesque habitant morbi. Risus feugiat in ante metus dictum at. Nulla aliquet porttitor lacus luctus accumsan tortor posuere. Facilisis volutpat est velit egestas dui id ornare arcu odio.
-
-Pretium viverra suspendisse potenti nullam ac tortor vitae purus faucibus. Urna cursus eget nunc scelerisque viverra mauris in aliquam. Feugiat in fermentum posuere urna. Id aliquet lectus proin nibh nisl condimentum. Et netus et malesuada fames ac turpis. Eu tincidunt tortor aliquam nulla facilisi. Accumsan tortor posuere ac ut consequat semper viverra nam. Eget mi proin sed libero enim sed faucibus turpis. Quam quisque id diam vel quam. Dapibus ultrices in iaculis nunc sed augue lacus viverra. Neque laoreet suspendisse interdum consectetur libero id faucibus nisl tincidunt. Amet tellus cras adipiscing enim eu turpis egestas. Et ultrices neque ornare aenean euismod elementum nisi quis. Pellentesque habitant morbi tristique senectus. Dui id ornare arcu odio ut. At tempor commodo ullamcorper a lacus vestibulum sed. Volutpat sed cras ornare arcu dui vivamus arcu. Pellentesque pulvinar pellentesque habitant morbi. Tortor vitae purus faucibus ornare suspendisse sed. Eget arcu dictum varius duis at.</p>
-
-    <div className='flex flex-row justify-center items-center mb-10'><span className='font-bold text-xl'>By</span> <img className='h-5 w-5 rounded-full mx-2' src='/logo.jpg'/> <span className='font-bold text-xl'>Ujjawal Gupta</span></div>
-    <div className='flex flex-row justify-center mb-10 '>
+    <div className='flex flex-row justify-center items-center mb-10'><span className='font-bold text-xl'>By</span> <img className='h-5 w-5 rounded-full mx-2' src='/logo.jpg'/> <span className='font-bold text-xl'>{blog.auth}</span></div>
+    <div className='flex flex-row justify-center mb-10'>
   <Button className='mr-5' >
     Update A Blog!
   </Button>
-  <Button >
+  <Button onClick={(e)=>{deleteBlog(e)}} >
     Delete A Blog!
   </Button>
 </div>
